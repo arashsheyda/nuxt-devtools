@@ -6,6 +6,8 @@ const props = defineProps<{
   asset: AssetInfo
 }>()
 
+const emit = defineEmits(['deleted'])
+
 const imageMeta = computedAsync(() => {
   if (props.asset.type !== 'image')
     return undefined
@@ -81,6 +83,11 @@ const supportsPreview = computed(() => {
     'font',
   ].includes(props.asset.type)
 })
+
+async function deleteAsset() {
+  await rpc.deleteStaticAsset(props.asset.filePath)
+  emit('deleted')
+}
 </script>
 
 <template>
@@ -119,7 +126,7 @@ const supportsPreview = computed(() => {
           </td>
           <td>
             <div flex="~ gap-1" items-center>
-              <FilepathItem :filepath="asset.filePath" w-full line-break ws-normal text-left />
+              <FilepathItem :filepath="asset.filePath" w-full line-break ws-normal text-left overflow-auto />
               <div flex-auto />
               <NIconButton
                 title="Open in Editor"
@@ -135,7 +142,7 @@ const supportsPreview = computed(() => {
           </td>
           <td>
             <div flex="~ gap-1" items-center>
-              <div font-mono>
+              <div overflow-auto font-mono>
                 {{ asset.publicPath }}
               </div>
               <div flex-auto />

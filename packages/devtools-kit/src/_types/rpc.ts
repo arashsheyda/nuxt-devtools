@@ -38,6 +38,8 @@ export interface ServerFunctions {
 
   // Queries
   getStaticAssets(folder: string, allFiles?: boolean): Promise<AssetInfo[]>
+  writeStaticAssets(file: { name: string; data: string }[], path: string): Promise<string[]>
+  deleteStaticAsset(file: string): Promise<void>
   getImageMeta(filepath: string): Promise<ImageMeta | undefined>
   getTextAssetContent(filepath: string, limit?: number): Promise<string | undefined>
 
