@@ -34,6 +34,15 @@ export function setupAssetsRPC({ nuxt }: NuxtDevtoolsServerContext) {
         return 'other'
       }
 
+      // sort folders first
+      files.sort((a, b) => {
+        if (a.endsWith('/') && !b.endsWith('/'))
+          return -1
+        if (!a.endsWith('/') && b.endsWith('/'))
+          return 1
+        return a.localeCompare(b)
+      })
+
       return await Promise.all(files.map(async (path) => {
         const filePath = resolve(dir, path)
         const stat = await fs.lstat(filePath)
