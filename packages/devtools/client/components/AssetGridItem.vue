@@ -17,7 +17,8 @@ const path = computed(() => {
   <button flex="~ col gap-1" hover="bg-active" rounded of-hidden items-center p2>
     <AssetPreview v-if="asset.type !== 'folder'" rounded w-30 h-30 border="~ base" :asset="asset" />
     <div v-else rounded w-30 h-30 border="~ base">
-      <NIcon w-full h-full icon="carbon-folder" />
+      <!-- <NIcon w-full h-full icon="carbon-folder" /> -->
+      <AssetIcon :asset="asset" />
     </div>
     <div of-hidden w-full ws-nowrap text-center truncate text-xs>
       {{ path }}
