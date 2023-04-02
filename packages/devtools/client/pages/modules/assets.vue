@@ -173,6 +173,9 @@ function contextMenu(e: MouseEvent) {
   contextOptions.x = e.x
   contextOptions.y = e.y
 
+  if (showMenu.value && e.button === 2)
+    closeContext()
+
   showMenu.value = true
 
   const clickOutside = (e: MouseEvent) => {
@@ -188,8 +191,10 @@ function contextMenuAsset(asset: AssetInfo) {
   if (wsConnecting.value || wsError.value)
     return
 
+  if (showMenu.value)
+    showMenu.value = false
+
   selected.value = asset
-  showMenu.value = true
 }
 
 function closeContext() {
